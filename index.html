@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!-- XHTML-compatible personal website for a T-shirt store -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>My T-Shirt Stores – Kenya</title>
+
+  <!-- Embedded CSS -->
+  <style type="text/css">
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #222;
+      color: #ffffff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav {
+      background-color: #444;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: #ffffff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 20px;
+      display: none;
+      background-color: #ffffff;
+      margin: 15px;
+      border-radius: 5px;
+    }
+    section.active {
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #cccccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #eeeeee;
+    }
+    input, select, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+    }
+    .gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin: 10px;
+      border: 1px solid #ccc;
+    }
+    footer {
+      background-color: #222;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+
+  <!-- Embedded JavaScript -->
+  <script type="text/javascript">
+    function showSection(id) {
+      var sections = document.getElementsByTagName('section');
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].className = '';
+      }
+      document.getElementById(id).className = 'active';
+    }
+
+    function calculateDelivery() {
+      var location = document.getElementById('location').value;
+      var days = 0;
+      var cost = 0;
+
+      if (location === 'Nairobi') {
+        days = 2; cost = 300;
+      } else if (location === 'Mombasa') {
+        days = 4; cost = 600;
+      } else if (location === 'Kisumu') {
+        days = 5; cost = 700;
+      } else if (location === 'Eldoret') {
+        days = 4; cost = 650;
+      } else {
+        days = 6; cost = 800;
+      }
+
+      document.getElementById('deliveryResult').innerHTML =
+        'Estimated delivery: ' + days + ' days<br />Shipping cost: KES ' + cost;
+    }
+
+    function mpesaPrompt() {
+      var phone = document.getElementById('mpesaPhone').value;
+
+      if (phone === '') {
+        alert('Please enter your M-Pesa phone number.');
+        return false;
+      }
+
+      alert(
+        'M-Pesa payment request has been sent to ' + phone +
+        '\\nPlease enter your PIN on your phone to complete payment.'
+      );
+
+      return true;
+    }
+
+    function payOption() {
+      var payOnline = document.getElementById('payOnline').checked;
+
+      if (payOnline) {
+        return mpesaPrompt();
+      }
+
+      alert('Order placed successfully. You will pay on delivery.');
+      return true;
+    }
+  </script>
+</head>
+
+<body onload="showSection('home')">
+
+<header>
+  <h1>My T-Shirt Stores – Kenya</h1>
+  <p>Quality T-shirts in different colours and sizes</p>
+</header>
+
+<nav>
+  <a href="#" onclick="showSection('home')">Home</a>
+  <a href="#" onclick="showSection('products')">Products & Prices</a>
+  <a href="#" onclick="showSection('order')">Order Online</a>
+  <a href="#" onclick="showSection('contacts')">Contacts & Locations</a>
+  <a href="#" onclick="showSection('gallery')">T-Shirt Gallery</a>
+</nav>
+
+<section id="home" class="active">
+  <h2>Welcome</h2>
+  <p>We operate personal T-shirt stores countrywide in Kenya.</p>
+</section>
+
+<section id="products">
+  <h2>T-Shirts and Prices (KES)</h2>
+  <table>
+    <tr>
+      <th>Colour</th><th>Small</th><th>Medium</th><th>Large</th><th>Extra Large</th>
+    </tr>
+    <tr><td>Red</td><td>800</td><td>900</td><td>1000</td><td>1100</td></tr>
+    <tr><td>Black</td><td>850</td><td>950</td><td>1050</td><td>1150</td></tr>
+    <tr><td>Grey</td><td>780</td><td>880</td><td>980</td><td>1080</td></tr>
+    <tr><td>Brown</td><td>800</td><td>900</td><td>1000</td><td>1100</td></tr>
+    <tr><td>White</td><td>750</td><td>850</td><td>950</td><td>1050</td></tr>
+  </table>
+</section>
+
+<section id="order">
+  <h2>Order Online</h2>
+
+  <form action="#" method="post" onsubmit="return payOption();">
+
+    <label>Choose Colour:</label>
+    <select>
+      <option>Red</option>
+      <option>Black</option>
+      <option>Grey</option>
+      <option>Brown</option>
+      <option>White</option>
+    </select>
+
+    <label>Choose Size:</label>
+    <select>
+      <option>Small</option>
+      <option>Medium</option>
+      <option>Large</option>
+      <option>Extra Large</option>
+    </select>
+
+    <label>Your Location:</label>
+    <select id="location" onchange="calculateDelivery()">
+      <option>Nairobi</option>
+      <option>Mombasa</option>
+      <option>Kisumu</option>
+      <option>Eldoret</option>
+      <option>Other</option>
+    </select>
+
+    <div id="deliveryResult"></div>
+
+    <label>Payment Method:</label>
+    <input type="radio" id="payOnline" name="payment" checked="checked" /> Pay Online (M-Pesa)<br />
+    <input type="radio" name="payment" /> Pay on Delivery
+
+    <label>M-Pesa Phone Number:</label>
+    <input type="text" id="mpesaPhone" placeholder="07XXXXXXXX" />
+
+    <button type="submit">Confirm Order</button>
+  </form>
+</section>
+
+<section id="contacts">
+  <h2>Store Contacts & Locations</h2>
+
+  <iframe src="https://www.google.com/maps?q=Kimathi+Street+Nairobi&output=embed"
+    width="100%" height="300" style="border:0;" allowfullscreen="allowfullscreen"></iframe>
+</section>
+
+<section id="gallery">
+  <h2>T-Shirt Gallery</h2>
+  <div class="gallery">
+    <img src="1.jpeg" alt="Red T-Shirt Small" />
+    <img src="2.jpeg" alt="Black T-Shirt Medium" />
+    <img src="3.jpeg" alt="Grey T-Shirt Large" />
+    <img src="4.jpeg" alt="White T-Shirt Extra Large" />
+    <img src="5.jpeg" alt="Brown T-Shirt Extra Large" />
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 My T-Shirt Stores – Kenya</p>
+</footer>
+
+</body>
+</html>
